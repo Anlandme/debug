@@ -7,14 +7,14 @@
 # define SIZE 100
 
 //dump mem map
-void dumpmap()
+void dump_memap()
 {
-        char cmd[30] = {'\0'};
-        sprintf(cmd,"cat /proc/%d/maps",getpid());
+		char cmd[30] = {'\0'};
+		sprintf(cmd,"cat /proc/%d/maps",getpid());
 
-        system(cmd);
+		system(cmd);
 
-        exit(0);
+		exit(0);
 }
 
 //dump stack trace
@@ -24,7 +24,7 @@ void print_trace(void)
 		void *buffer[100];
 		char **strings;
 
-    	/*The backtrace() return the number of buffer address*/
+		/*The backtrace() return the number of buffer address*/
 		addr_num = backtrace(buffer, SIZE);
 		printf("backtrace() returned %d addresses\n", addr_num);
 
@@ -46,14 +46,14 @@ void print_trace(void)
 
 void dump(int nu)
 {
-	
-	        printf("stack dump!\n");
-        printf("##############\n");
-	print_trace();
-	
-	printf("memory dump!\n");
-	printf("##############\n");
-	dumpmap();
+
+		printf("stack dump!\n");
+		printf("##############\n");
+		print_trace();
+
+		printf("memory dump!\n");
+		printf("##############\n");
+		dump_memap();
 }
 
 void fun(void)
@@ -64,7 +64,7 @@ void fun(void)
 
 int main(void)
 {
-	signal(SIGSEGV,dump);
+		signal(SIGSEGV,dump);
 		fun();
 
 		return 0;
